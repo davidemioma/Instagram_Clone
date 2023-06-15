@@ -4,7 +4,8 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
-import { signInWithGoogle } from "@/libs/firebase";
+import { db, signInWithGoogle } from "@/libs/firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 const Login = () => {
   const router = useRouter();
@@ -15,7 +16,20 @@ const Login = () => {
     setLoading(true);
 
     signInWithGoogle()
-      .then(() => {
+      .then((res) => {
+        setDoc(
+          doc(db, "users", res?.user?.uid),
+          {
+            phoneNo: "",
+            profileUrl: "",
+            email: res?.user?.email,
+            displayName: res?.user?.displayName,
+            photoUrl: res?.user?.photoURL || "",
+            timestamp: serverTimestamp(),
+          },
+          { merge: true }
+        );
+
         toast.success("Login successful");
 
         router.push("/");

@@ -1,0 +1,74 @@
+import { db, storage } from "@/libs/firebase";
+import { FileProps, DummyPost } from "@/types";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+
+export const uploadImage = (e: React.FormEvent, setSelectedFile: any) => {
+  const reader = new FileReader();
+
+  const file = (e.target as HTMLFormElement).files?.[0];
+
+  reader.readAsDataURL(file);
+
+  reader.onload = (readerEvent) => {
+    setSelectedFile(readerEvent.target?.result);
+  };
+};
+
+const readFileContents = async (file: any) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+};
+
+export const readAllFiles = async (files: any) => {
+  const results = await Promise.all(
+    files.map(async (file: any) => {
+      const fileContents = await readFileContents(file);
+
+      return {
+        name: file.name,
+        type: file.type,
+        dataUrl: fileContents,
+      };
+    })
+  );
+
+  return results;
+};
+
+export const uploadPost = async (
+  post: DummyPost,
+  selectedFiles: FileProps[]
+) => {
+  await addDoc(collection(db, "posts"), {
+    ...post,
+    timestamp: serverTimestamp(),
+  }).then((docRef) => {
+    if (selectedFiles.length > 0) {
+      selectedFiles.map(async (file) => {
+        const postRef = ref(storage, `posts/${docRef?.id}/files/${file.name}`);
+
+        await uploadString(postRef, file.dataUrl, "data_url").then(
+          async (snapshot) => {
+            const downloadUrl = await getDownloadURL(postRef);
+
+            await addDoc(collection(db, "posts", docRef?.id, "files"), {
+              postContentUrl: downloadUrl,
+              name: file.name,
+              type: file.type,
+            });
+          }
+        );
+      });
+    }
+  });
+};
