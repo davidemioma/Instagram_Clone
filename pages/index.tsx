@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <div className={`${font.className}`}>
       <Head>
-        <title>Facebook-Clone</title>
+        <title>Instagram-Clone</title>
 
-        <link rel="icon" href="/assets/facebook-icon.webp" />
+        <link rel="icon" href="/logo.webp" />
       </Head>
       Home
     </div>
