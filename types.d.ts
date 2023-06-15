@@ -32,22 +32,41 @@ export interface PostProps {
   };
 }
 
-// export interface CommentProps {
-//   id: string;
-//   comment: string;
-//   displayName: string;
-//   profileUrl: string;
-//   timestamp: {
-//     seconds: number;
-//     nanoseconds: number;
-//   };
-// }
+export interface PostFiles {
+  id: string;
+  name: string;
+  type: string;
+  postContentUrl: string;
+}
 
-// export interface LikeProps {
-//   id: string;
-//   displayName: string;
-//   profileUrl: string;
-// }
+export interface LikeProps {
+  id: string;
+  displayName: string;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
+
+export interface BookmarkProps {
+  id: string;
+  postId: string;
+  displayName: string;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
+
+export interface CommentProps {
+  id: string;
+  comment: string;
+  userId: string;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
 
 // export interface NotificationProps {
 //   id: string;
