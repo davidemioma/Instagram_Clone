@@ -19,7 +19,7 @@ interface Props {
 const Post = ({ post }: Props) => {
   const files = useFilesByPostId(post.id);
 
-  const account = useAccountById(post.userId);
+  const account = useAccountById(`${post?.userId}`);
 
   const { likes } = useLike(post.id);
 

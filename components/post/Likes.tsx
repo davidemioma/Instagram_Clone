@@ -11,7 +11,7 @@ interface Props {
 const Likes = ({ likes }: Props) => {
   const account = useAccountById(likes[0]?.id);
 
-  const sec_Acc = likes.length > 1 ? useAccountById(likes[1]?.id) : null;
+  const sec_Acc = useAccountById(`${likes[1]?.id}`);
 
   return (
     <div className="flex text-sm items-center space-x-1">

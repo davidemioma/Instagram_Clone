@@ -94,7 +94,7 @@ const useFollowing = (userId: string) => {
 
       await addDoc(collection(db, "users", userId, "notifications"), {
         task: "follower",
-        userId: currentUser?.id,
+        userId: `${currentUser?.id}`,
         timestamp: serverTimestamp(),
       });
 

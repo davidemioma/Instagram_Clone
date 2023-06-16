@@ -79,8 +79,8 @@ export interface followProps {
 
 export interface NotificationProps {
   id: string;
+  userId: string;
   task: string;
-  userid: string;
   timestamp: {
     seconds: number;
     nanoseconds: number;

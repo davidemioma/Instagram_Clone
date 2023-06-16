@@ -51,6 +51,8 @@ const useLike = (postId: string) => {
   );
 
   const likePost = async () => {
+    if (!currentUser?.id) return;
+
     if (hasLiked) {
       await deleteDoc(doc(db, "posts", postId, "likes", `${currentUser?.id}`));
     } else {
@@ -59,16 +61,16 @@ const useLike = (postId: string) => {
         timestamp: serverTimestamp(),
       });
 
-      await addDoc(
-        collection(db, "users", `${post?.userId}`, "notifications"),
-        {
-          task: "like",
-          userId: currentUser?.id,
-          timestamp: serverTimestamp(),
-        }
-      );
+      if (`${post?.userId}` !== `${currentUser?.id}`) {
+        await addDoc(
+          collection(db, "users", `${post?.userId}`, "notifications"),
+          {
+            task: "like",
+            userId: `${currentUser?.id}`,
+            timestamp: serverTimestamp(),
+          }
+        );
 
-      if (post?.userId !== currentUser?.id) {
         turnOnNotifications();
       }
     }
