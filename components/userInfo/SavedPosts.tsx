@@ -19,7 +19,7 @@ const SavedPosts = ({ bookmarks }: Props) => {
 
               if (!post) return null;
 
-              return <UserPost post={post!} />;
+              return <UserPost key={post.id} post={post!} />;
             })}
           </div>
         </div>
