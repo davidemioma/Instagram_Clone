@@ -25,6 +25,7 @@ const Login = () => {
             email: res?.user?.email,
             displayName: res?.user?.displayName,
             photoUrl: res?.user?.photoURL || "",
+            hasNotification: false,
             timestamp: serverTimestamp(),
           },
           { merge: true }

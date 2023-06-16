@@ -5,6 +5,7 @@ export interface AccountProps {
   photoUrl: string;
   profileUrl: string;
   displayName: string;
+  hasNotification: boolean;
   timestamp: {
     seconds: number;
     nanoseconds: number;
@@ -68,13 +69,20 @@ export interface CommentProps {
   };
 }
 
-// export interface NotificationProps {
-//   id: string;
-//   task: string;
-//   displayName: string;
-//   profileUrl: string;
-//   timestamp: {
-//     seconds: number;
-//     nanoseconds: number;
-//   };
-// }
+export interface followProps {
+  id: string;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
+
+export interface NotificationProps {
+  id: string;
+  task: string;
+  userid: string;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}

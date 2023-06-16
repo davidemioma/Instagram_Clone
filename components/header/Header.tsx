@@ -40,13 +40,21 @@ const Header = () => {
             onClick={() => addPostModal.onOpen()}
           />
 
-          <HeaderItem
-            Icon={
-              router.asPath === "/notifications" ? AiFillHeart : AiOutlineHeart
-            }
-            href="/notifications"
-            active={router.asPath === "/notifications"}
-          />
+          <div className="relative">
+            <HeaderItem
+              Icon={
+                router.asPath === "/notifications"
+                  ? AiFillHeart
+                  : AiOutlineHeart
+              }
+              href="/notifications"
+              active={router.asPath === "/notifications"}
+            />
+
+            {currentUser?.hasNotification && (
+              <span className="absolute top-0 right-0 bg-red-500 w-2 h-2 rounded-full" />
+            )}
+          </div>
 
           <HeaderItem
             imgSrc={

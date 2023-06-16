@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { LikeProps } from "@/types";
 import { db } from "@/libs/firebase";
-import useCurrentUser from "./useCurrentUser";
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -12,6 +12,9 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
+import usePostById from "./usePostById";
+import useCurrentUser from "./useCurrentUser";
+import useNotifications from "./useNotification";
 
 const useLike = (postId: string) => {
   const currentUser = useCurrentUser();
@@ -19,6 +22,10 @@ const useLike = (postId: string) => {
   const [hasLiked, setHasLiked] = useState(false);
 
   const [likes, setLikes] = useState<LikeProps[]>([]);
+
+  const post = usePostById(postId);
+
+  const { turnOnNotifications } = useNotifications(post?.userId!);
 
   useEffect(
     () =>
@@ -51,6 +58,19 @@ const useLike = (postId: string) => {
         displayName: currentUser?.displayName,
         timestamp: serverTimestamp(),
       });
+
+      await addDoc(
+        collection(db, "users", `${post?.userId}`, "notifications"),
+        {
+          task: "like",
+          userId: currentUser?.id,
+          timestamp: serverTimestamp(),
+        }
+      );
+
+      if (post?.userId !== currentUser?.id) {
+        turnOnNotifications();
+      }
     }
   };
 
