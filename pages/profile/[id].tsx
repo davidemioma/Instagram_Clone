@@ -14,6 +14,8 @@ import { BsGrid3X3, BsBookmark } from "react-icons/bs";
 import useBookmark from "@/hooks/useBookmark";
 import UserPosts from "@/components/userInfo/UserPosts";
 import SavedPosts from "@/components/userInfo/SavedPosts";
+import useFollowingsModal from "@/hooks/useFollowingsModal";
+import useFollowersModal from "@/hooks/useFollowersModal";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -36,6 +38,10 @@ export default function Profile() {
   const posts = usePostsByUserId(id as string);
 
   const { bookmarks } = useBookmark();
+
+  const followersModal = useFollowersModal();
+
+  const followingsModal = useFollowingsModal();
 
   const { isFollowing, followUser, followers, followings } = useFollowing(
     account?.id!
@@ -89,11 +95,17 @@ export default function Profile() {
             <div className="hidden sm:inline-flex items-center space-x-5 md:space-x-8">
               <LargeScreen data={posts} text="Post" isFollower />
 
-              <div className="cursor-pointer">
+              <div
+                className="cursor-pointer"
+                onClick={() => followersModal.onOpen()}
+              >
                 <LargeScreen data={followers} text="Follower" isFollower />
               </div>
 
-              <div className="cursor-pointer">
+              <div
+                className="cursor-pointer"
+                onClick={() => followingsModal.onOpen()}
+              >
                 <LargeScreen data={followings} text="Following" />
               </div>
             </div>

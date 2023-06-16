@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Account = ({ account }: Props) => {
-  const { followUser } = useFollowing(account.id);
+  const { followUser, isFollowing } = useFollowing(account.id);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +20,11 @@ const Account = ({ account }: Props) => {
 
     followUser()
       .then(() => {
-        toast.success(`You followed ${account.displayName}`);
+        toast.success(
+          `You ${isFollowing ? "Unfollowed" : "Followed"} ${
+            account.displayName
+          }`
+        );
       })
       .catch((err) => {
         toast.error("Something went wrong");
