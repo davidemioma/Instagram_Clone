@@ -24,4 +24,16 @@ body {
   .profileBtn {
     @apply flex py-4 items-center space-x-2 text-sm uppercase cursor-pointer tracking-wider font-semibold;
   }
+
+  .input-container {
+    @apply flex flex-col w-full space-y-1;
+  }
+
+  .label {
+    @apply text-sm text-gray-400;
+  }
+
+  .input {
+    @apply border-b pb-1 outline-none;
+  }
 }

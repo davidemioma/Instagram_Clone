@@ -102,6 +102,7 @@ const AddPostModal = () => {
             accept="image/*, video/*"
             multiple
             hidden
+            disabled={loading}
             onChange={uploadFiles}
           />
 
@@ -160,6 +161,7 @@ const AddPostModal = () => {
           <textarea
             className="w-full outline-none px-2 py-1"
             value={caption}
+            disabled={loading}
             rows={5}
             placeholder="Write a caption..."
             onChange={(e) => setCaption(e.target.value)}
