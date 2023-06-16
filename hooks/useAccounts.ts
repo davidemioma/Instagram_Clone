@@ -14,7 +14,7 @@ const useAccounts = () => {
   useEffect(
     () =>
       onSnapshot(
-        collection(db, "users", `${currentUser?.id}`, "following"),
+        collection(db, "users", `${currentUser?.id}`, "followings"),
         (snapshot) => setFollowingIds(snapshot.docs.map((doc) => doc.id))
       ),
     [currentUser?.id]
