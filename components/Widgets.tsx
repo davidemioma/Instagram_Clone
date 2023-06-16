@@ -10,7 +10,7 @@ const Widgets = () => {
   const currentUser = useCurrentUser();
 
   return (
-    <div className="hidden lg:inline w-[45%] py-7 pl-7">
+    <div className="hidden lg:inline fixed top-16 right-0 w-[45%] py-7 pl-7">
       <div className="flex items-center space-x-3 my-4">
         <Avatar user={currentUser} />
 

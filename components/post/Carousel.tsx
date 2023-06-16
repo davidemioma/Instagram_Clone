@@ -5,10 +5,17 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 
 interface Props {
   files: PostFiles[];
+  onClick?: () => void;
 }
 
-const Carousel = ({ files }: Props) => {
+const Carousel = ({ files, onClick }: Props) => {
   const [index, setIndex] = useState(0);
+
+  const onClickHandler = () => {
+    if (onClick) {
+      return onClick();
+    }
+  };
 
   const handleArrow = (direction: string) => {
     if (direction === "l") {
@@ -21,14 +28,17 @@ const Carousel = ({ files }: Props) => {
   };
 
   return (
-    <div className="relative h-72 md:h-96 w-full bg-black">
+    <div className="relative h-full w-full bg-black">
       {index !== 0 && (
         <button className="controls left-3" onClick={() => handleArrow("l")}>
           <ChevronLeftIcon className="h-6 text-blue-500" />
         </button>
       )}
 
-      <div className="h-full w-full overflow-hidden">
+      <div
+        className="h-full w-full overflow-hidden cursor-pointer"
+        onClick={onClickHandler}
+      >
         <div
           className="flex h-full w-full transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(${-100 * index}%)` }}

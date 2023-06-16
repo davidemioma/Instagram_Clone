@@ -5,6 +5,7 @@ import useLike from "@/hooks/useLike";
 import { FaComment } from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
 import useComments from "@/hooks/useComments";
+import usePostModal from "@/hooks/usePostModal";
 import { numberFormatter } from "@/utils/functions";
 import useFilesByPostId from "@/hooks/useFilesByPostId";
 
@@ -19,8 +20,19 @@ const UserPost = ({ post }: Props) => {
 
   const files = useFilesByPostId(post?.id!);
 
+  const postModal = usePostModal();
+
+  const onClickHandler = () => {
+    postModal.setPost(post);
+
+    postModal.onOpen();
+  };
+
   return (
-    <div className="group relative w-full h-36 md:h-56 lg:h-72 cursor-pointer overflow-hidden">
+    <div
+      className="group relative w-full h-36 md:h-56 lg:h-72 cursor-pointer overflow-hidden"
+      onClick={onClickHandler}
+    >
       {files?.[0]?.postContentUrl && (
         <Image
           className="object-cover"

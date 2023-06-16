@@ -5,6 +5,7 @@ import ProfileModal from "./Modals/ProfileModal";
 import useProfileModal from "@/hooks/useProfileModal";
 import Followers from "./Modals/follow/Followers";
 import Followings from "./Modals/follow/Followings";
+import PostModal from "./Modals/PostModal";
 
 interface Props {
   children: React.ReactNode;
@@ -28,6 +29,8 @@ const Layout = ({ children }: Props) => {
       <Followers />
 
       <Followings />
+
+      <PostModal />
 
       <div className="mt-16 w-full h-full" onClick={closeAllModals}>
         {children}

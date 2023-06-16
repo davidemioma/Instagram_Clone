@@ -9,6 +9,7 @@ import { PostProps } from "@/types";
 import useLike from "@/hooks/useLike";
 import CommentForm from "./CommentForm";
 import useComments from "@/hooks/useComments";
+import usePostModal from "@/hooks/usePostModal";
 import useAccountById from "@/hooks/useAccountById";
 import useFilesByPostId from "@/hooks/useFilesByPostId";
 
@@ -25,6 +26,14 @@ const Post = ({ post }: Props) => {
 
   const { comments } = useComments(post.id);
 
+  const postModal = usePostModal();
+
+  const onClickHandler = () => {
+    postModal.setPost(post);
+
+    postModal.onOpen();
+  };
+
   return (
     <div className="bg-white w-full max-w-xl mx-auto py-3 border border-gray-300 rounded-xl shadow-sm">
       <div className="flex items-center gap-2 px-4 mb-3">
@@ -33,7 +42,9 @@ const Post = ({ post }: Props) => {
         <p className="text-sm font-semibold">{account?.displayName}</p>
       </div>
 
-      <Carousel files={files} />
+      <div className="h-72 md:h-96 w-full overflow-hidden">
+        <Carousel files={files} onClick={onClickHandler} />
+      </div>
 
       <div className="flex flex-col gap-3 py-3 px-4">
         <Actions postId={post.id} />
@@ -49,7 +60,10 @@ const Post = ({ post }: Props) => {
         {comments.length > 0 && (
           <div className="flex flex-col gap-2">
             {comments.length > 2 && (
-              <p className="cursor-pointer text-sm text-gray-500">
+              <p
+                className="cursor-pointer text-sm text-gray-500"
+                onClick={onClickHandler}
+              >
                 View all {comments.length} comments
               </p>
             )}
