@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { auth } from "@/libs/firebase";
 import { signOut } from "@firebase/auth";
 import { CgProfile } from "react-icons/cg";
-import { VscBookmark } from "react-icons/vsc";
+import { FiSettings } from "react-icons/fi";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useProfileModal from "@/hooks/useProfileModal";
 
@@ -14,8 +14,8 @@ const ProfileModal = () => {
 
   const profileModal = useProfileModal();
 
-  const onClickHandler = () => {
-    router.push(`/profile/${currentUser?.id}`);
+  const onClickHandler = (href: string) => {
+    router.push(href);
 
     profileModal.onClose();
   };
@@ -27,7 +27,7 @@ const ProfileModal = () => {
       <div className="absolute top-20 right-6 md:right-8 z-20 bg-white w-56 rounded shadow-md after:absolute after:bottom-full after:right-0 after:block after:-translate-x-1/2 after:border-8 after:border-t-0 after:border-transparent after:border-b-white after:content-['']">
         <div
           className="flex items-center gap-3 p-2 px-4 cursor-pointer hover:bg-gray-100"
-          onClick={onClickHandler}
+          onClick={() => onClickHandler(`/profile/${currentUser?.id}`)}
         >
           <CgProfile />
 
@@ -36,11 +36,11 @@ const ProfileModal = () => {
 
         <div
           className="flex items-center gap-3 p-2 px-4 cursor-pointer hover:bg-gray-100"
-          onClick={onClickHandler}
+          onClick={() => onClickHandler("/account")}
         >
-          <VscBookmark />
+          <FiSettings />
 
-          <p className="text-sm">Saved</p>
+          <p className="text-sm">Account</p>
         </div>
 
         <button

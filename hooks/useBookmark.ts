@@ -13,7 +13,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-const useBookmark = (postId: string) => {
+const useBookmark = (postId?: string) => {
   const currentUser = useCurrentUser();
 
   const [hasBookmarked, setHasBookmarked] = useState(false);
@@ -24,7 +24,7 @@ const useBookmark = (postId: string) => {
     () =>
       onSnapshot(
         query(
-          collection(db, "posts", postId, "bookmarks"),
+          collection(db, "users", `${currentUser?.id}`, "bookmarks"),
           orderBy("timestamp", "desc")
         ),
         (snapshot: any) =>
@@ -32,36 +32,35 @@ const useBookmark = (postId: string) => {
             snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
           )
       ),
-    [postId]
+    [currentUser?.id]
   );
 
-  useEffect(
-    () =>
-      setHasBookmarked(
-        bookmarks?.findIndex((bookmark) => bookmark?.id === currentUser?.id) !==
-          -1
-      ),
-    [bookmarks, currentUser?.id]
-  );
+  useEffect(() => {
+    if (!postId) return;
+
+    setHasBookmarked(
+      bookmarks?.findIndex((bookmark) => bookmark?.id === postId) !== -1
+    );
+  }, [bookmarks, postId]);
 
   const bookmarkPost = async () => {
+    if (!postId) return;
+
     if (hasBookmarked) {
       await deleteDoc(
-        doc(db, "posts", postId, "bookmarks", `${currentUser?.id}`)
+        doc(db, "users", `${currentUser?.id}`, "bookmarks", postId)
       );
     } else {
       await setDoc(
-        doc(db, "posts", postId, "bookmarks", `${currentUser?.id}`),
+        doc(db, "users", `${currentUser?.id}`, "bookmarks", postId),
         {
-          postId,
-          displayName: currentUser?.displayName,
           timestamp: serverTimestamp(),
         }
       );
     }
   };
 
-  return { hasBookmarked, bookmarkPost };
+  return { hasBookmarked, bookmarkPost, bookmarks };
 };
 
 export default useBookmark;

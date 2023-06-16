@@ -51,8 +51,6 @@ export interface LikeProps {
 
 export interface BookmarkProps {
   id: string;
-  postId: string;
-  displayName: string;
   timestamp: {
     seconds: number;
     nanoseconds: number;
