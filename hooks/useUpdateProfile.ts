@@ -4,7 +4,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 interface Props {
-  displayName: string;
   phoneNo: string;
   selectedFile?: string;
 }
@@ -12,11 +11,7 @@ interface Props {
 const useUpdateProfile = () => {
   const currentUser = useCurrentUser();
 
-  const updateProfile = async ({
-    displayName,
-    phoneNo,
-    selectedFile,
-  }: Props) => {
+  const updateProfile = async ({ phoneNo, selectedFile }: Props) => {
     const imageRef = ref(storage, `posts/${currentUser?.id}/profile`);
 
     if (selectedFile) {
@@ -25,7 +20,6 @@ const useUpdateProfile = () => {
           const downloadUrl = await getDownloadURL(imageRef);
 
           await updateDoc(doc(db, "users", `${currentUser?.id}`), {
-            displayName,
             phoneNo,
             profileUrl: downloadUrl,
           });
@@ -33,7 +27,6 @@ const useUpdateProfile = () => {
       );
     } else {
       await updateDoc(doc(db, "users", `${currentUser?.id}`), {
-        displayName,
         phoneNo,
       });
     }

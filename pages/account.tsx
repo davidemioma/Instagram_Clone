@@ -26,8 +26,6 @@ export default function Account() {
 
   const [phoneNo, setPhoneNo] = useState("");
 
-  const [displayName, setDisplayName] = useState("");
-
   const uploadImageHandler = (e: React.FormEvent) => {
     uploadImage(e, setSeletedFile);
   };
@@ -38,7 +36,6 @@ export default function Account() {
     setIsLoading(true);
 
     updateProfile({
-      displayName,
       phoneNo,
       selectedFile: seletedFile || "",
     })
@@ -57,8 +54,6 @@ export default function Account() {
 
   useEffect(() => {
     setPhoneNo(currentUser?.phoneNo!);
-
-    setDisplayName(currentUser?.displayName!);
   }, [currentUser]);
 
   return (
@@ -93,13 +88,7 @@ export default function Account() {
             <div className="input-container">
               <label className="label">Full Name</label>
 
-              <input
-                className="input"
-                value={displayName}
-                disabled={loading}
-                type="text"
-                onChange={(e) => setDisplayName(e.target.value)}
-              />
+              <p className="input">{currentUser?.displayName}</p>
             </div>
 
             <div className="input-container">
