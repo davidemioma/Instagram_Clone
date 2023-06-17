@@ -24,7 +24,7 @@ const HeaderItem = ({ Icon, imgSrc, href, onClick, active }: Props) => {
         className="hover:scale-105 transition-transform duration-300 cursor-pointer"
         onClick={onClickHandler}
       >
-        {Icon && <Icon size={25} />}
+        {Icon && <Icon size={23} />}
 
         {imgSrc && (
           <div

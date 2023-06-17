@@ -3,6 +3,10 @@ import { FileProps, DummyPost } from "@/types";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
+export const generateId = (id1: any, id2: any) => {
+  return id1 > id2 ? id1 + id2 : id2 + id1;
+};
+
 export const numberFormatter = (num: number) => {
   let newNumber = "";
 
@@ -87,4 +91,24 @@ export const uploadPost = async (
       });
     }
   });
+};
+
+export const getRandomUsers = (users: any[], numOfUsers: number) => {
+  if (numOfUsers > users.length) {
+    return users.slice(0, users.length);
+  }
+
+  const randomUsers = [];
+
+  const usersCopy = [...users];
+
+  while (randomUsers.length < numOfUsers) {
+    const randomIndex = Math.floor(Math.random() * usersCopy.length);
+
+    const randomUser = usersCopy.splice(randomIndex, 1)[0];
+
+    randomUsers.push(randomUser);
+  }
+
+  return randomUsers;
 };

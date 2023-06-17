@@ -31,7 +31,7 @@ const Carousel = ({ files, onClick }: Props) => {
     <div className="relative h-full w-full bg-black">
       {index !== 0 && (
         <button className="controls left-3" onClick={() => handleArrow("l")}>
-          <ChevronLeftIcon className="h-6 text-blue-500" />
+          <ChevronLeftIcon className="h-6 text-gray-500" />
         </button>
       )}
 
@@ -69,7 +69,7 @@ const Carousel = ({ files, onClick }: Props) => {
 
       {index !== files?.length - 1 && (
         <button className="controls right-3" onClick={() => handleArrow("r")}>
-          <ChevronRightIcon className="h-6 text-blue-500" />
+          <ChevronRightIcon className="h-6 text-gray-500" />
         </button>
       )}
     </div>

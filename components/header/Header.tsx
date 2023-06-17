@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useAddPostModal from "@/hooks/useAddPostModal";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoPaperPlaneOutline } from "react-icons/io5";
 import useProfileModal from "@/hooks/useProfileModal";
 import { AiFillHome, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
@@ -32,7 +33,7 @@ const Header = () => {
           </div>
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-4">
           <HeaderItem Icon={AiFillHome} href="/" />
 
           <HeaderItem
@@ -56,6 +57,8 @@ const Header = () => {
             )}
           </div>
 
+          <HeaderItem Icon={IoPaperPlaneOutline} href="/chats" active={true} />
+
           <HeaderItem
             imgSrc={
               currentUser?.profileUrl ||
@@ -63,7 +66,7 @@ const Header = () => {
               "/assets/no-profile.jpeg"
             }
             onClick={() => profileModal.toggle()}
-            active={true}
+            active={profileModal.isOpen}
           />
         </div>
       </div>
