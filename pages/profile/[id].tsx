@@ -44,7 +44,7 @@ export default function Profile() {
   const followingsModal = useFollowingsModal();
 
   const { isFollowing, followUser, followers, followings } = useFollowing(
-    account?.id!
+    `${account?.id}`
   );
 
   let content = <UserPosts posts={posts} />;

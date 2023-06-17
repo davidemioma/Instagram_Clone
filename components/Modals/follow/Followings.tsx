@@ -12,7 +12,7 @@ const Followings = () => {
 
   const followingsModal = useFollowingsModal();
 
-  const { followings } = useFollowing(id as string);
+  const { followings } = useFollowing(`${id}`);
 
   if (!id) return null;
 

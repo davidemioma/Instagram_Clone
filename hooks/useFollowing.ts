@@ -22,6 +22,8 @@ const useFollowing = (userId: string) => {
 
   const [isFollowing, setIsFollowing] = useState(false);
 
+  const [myFollowings, setMyFollowings] = useState<followProps[]>([]);
+
   const [followers, setFollowers] = useState<followProps[]>([]);
 
   const [followings, setFollowings] = useState<followProps[]>([]);
@@ -30,7 +32,7 @@ const useFollowing = (userId: string) => {
     () =>
       onSnapshot(
         query(
-          collection(db, "users", `${currentUser?.id}`, "followers"),
+          collection(db, "users", `${userId}`, "followers"),
           orderBy("timestamp", "desc")
         ),
         (snapshot: any) =>
@@ -38,7 +40,22 @@ const useFollowing = (userId: string) => {
             snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
           )
       ),
-    [currentUser?.id]
+    [userId]
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "users", `${userId}`, "followings"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot: any) =>
+          setFollowings(
+            snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
+          )
+      ),
+    [userId]
   );
 
   useEffect(
@@ -49,7 +66,7 @@ const useFollowing = (userId: string) => {
           orderBy("timestamp", "desc")
         ),
         (snapshot: any) =>
-          setFollowings(
+          setMyFollowings(
             snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
           )
       ),
@@ -59,9 +76,9 @@ const useFollowing = (userId: string) => {
   useEffect(
     () =>
       setIsFollowing(
-        followings?.findIndex((following) => following?.id === userId) !== -1
+        myFollowings?.findIndex((following) => following?.id === userId) !== -1
       ),
-    [followings, userId]
+    [myFollowings, userId]
   );
 
   const followUser = async () => {

@@ -3,7 +3,6 @@ import Modal from "../Modal";
 import UserItem from "./UserItem";
 import { useRouter } from "next/router";
 import useFollowing from "@/hooks/useFollowing";
-import useAccountById from "@/hooks/useAccountById";
 import useFollowersModal from "@/hooks/useFollowersModal";
 
 const Followers = () => {
@@ -13,7 +12,7 @@ const Followers = () => {
 
   const followersModal = useFollowersModal();
 
-  const { followers } = useFollowing(id as string);
+  const { followers } = useFollowing(`${id}`);
 
   if (!id) return null;
 
