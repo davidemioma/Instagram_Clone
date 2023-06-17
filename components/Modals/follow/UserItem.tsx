@@ -9,9 +9,10 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 
 interface Props {
   user: followProps | null;
+  modal?: any;
 }
 
-const UserItem = ({ user }: Props) => {
+const UserItem = ({ user, modal }: Props) => {
   const currentUser = useCurrentUser();
 
   const account = useAccountById(user?.id!);
@@ -43,7 +44,9 @@ const UserItem = ({ user }: Props) => {
 
   return (
     <div className="flex items-center gap-3">
-      <Avatar user={account} />
+      <div onClick={() => modal?.onClose()}>
+        <Avatar user={account} />
+      </div>
 
       <p className="flex-1 text-sm font-semibold">{account?.displayName}</p>
 

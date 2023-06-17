@@ -44,13 +44,17 @@ const PostModal = () => {
 
           <div className="relative w-1/2 h-full overflow-hidden">
             <div className="h-16 flex items-center gap-3 px-4 border-b">
-              <Avatar user={account} />
+              <div onClick={() => postModal.onClose()}>
+                <Avatar user={account} />
+              </div>
 
               <p className="text-sm font-bold">{account?.displayName}</p>
             </div>
 
             <div className="flex items-center gap-3 p-4 text-sm">
-              <Avatar user={account} />
+              <div onClick={() => postModal.onClose()}>
+                <Avatar user={account} />
+              </div>
 
               <div>
                 <p>
@@ -105,7 +109,9 @@ const PostModal = () => {
 
         <div className="lg:hidden relative h-full">
           <div className="h-16 flex items-center gap-2 px-4">
-            <Avatar user={account} />
+            <div onClick={() => postModal.onClose()}>
+              <Avatar user={account} />
+            </div>
 
             <p className="text-sm font-bold">{account?.displayName}</p>
           </div>

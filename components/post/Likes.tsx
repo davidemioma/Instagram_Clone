@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Avatar from "../Avatar";
 import { LikeProps } from "@/types";
 import useAccountById from "@/hooks/useAccountById";
@@ -15,7 +16,18 @@ const Likes = ({ likes }: Props) => {
 
   return (
     <div className="flex text-sm items-center space-x-1">
-      <Avatar user={account} />
+      <div className="relative w-7 h-7 rounded-full overflow-hidden cursor-pointer">
+        <Image
+          className="object-cover"
+          src={
+            account?.profileUrl ||
+            account?.photoUrl ||
+            "/assets/no-profile.jpeg"
+          }
+          fill
+          alt=""
+        />
+      </div>
 
       <p>
         Liked by <span className="font-bold">{likes[0]?.displayName}</span>

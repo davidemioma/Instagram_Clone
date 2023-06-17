@@ -31,7 +31,7 @@ const Followings = () => {
 
         <div className="h-[calc(256px-48px)] flex flex-col gap-3 py-2 px-3 overflow-y-auto scrollbar-hide">
           {followings.map((user) => (
-            <UserItem key={user.id} user={user} />
+            <UserItem key={user.id} user={user} modal={followingsModal} />
           ))}
         </div>
       </div>
