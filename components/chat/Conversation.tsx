@@ -36,7 +36,7 @@ const Conversation = ({ conversation, selected }: Props) => {
   }, [currentUser?.id, lastMessage]);
 
   const onClick = useCallback(() => {
-    router.push(`/chats/conversations/${conversation.id}`);
+    router.push(`/chats/${conversation.id}`);
   }, [conversation.id, router]);
 
   return (
