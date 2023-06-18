@@ -1,9 +1,11 @@
 import React from "react";
 import Avatar from "../Avatar";
 import { useRouter } from "next/router";
+import Conversation from "./Conversation";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import useConversationModal from "@/hooks/useConversationModal";
+import useConversations from "@/hooks/useConversations";
 
 interface Props {
   children: React.ReactNode;
@@ -12,7 +14,11 @@ interface Props {
 const ChatLayout = ({ children }: Props) => {
   const router = useRouter();
 
+  const { convoId } = router.query;
+
   const currentUser = useCurrentUser();
+
+  const conversations = useConversations();
 
   const conversationModal = useConversationModal();
 
@@ -28,7 +34,7 @@ const ChatLayout = ({ children }: Props) => {
             }`}
           >
             <div className="w-full h-full">
-              <div className="w-full h-12 flex items-center justify-between px-5 border-b">
+              <div className="w-full h-14 flex items-center justify-between px-5 border-b">
                 <div className="flex items-center gap-2">
                   <Avatar user={currentUser} />
 
@@ -40,6 +46,16 @@ const ChatLayout = ({ children }: Props) => {
                   size={25}
                   onClick={() => conversationModal.onOpen()}
                 />
+              </div>
+
+              <div className="flex flex-col h-full overflow-y-auto scrollbar-hide">
+                {conversations.map((conversation) => (
+                  <Conversation
+                    key={conversation.id}
+                    conversation={conversation}
+                    selected={convoId === conversation.id}
+                  />
+                ))}
               </div>
             </div>
           </div>

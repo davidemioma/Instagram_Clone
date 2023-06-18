@@ -84,3 +84,23 @@ export interface NotificationProps {
     nanoseconds: number;
   };
 }
+
+export interface ConversationProps {
+  id: string;
+  usersMatched: string[];
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
+
+export interface MessageProps {
+  id: string;
+  senderId: string;
+  message: string;
+  hasSeen: string[];
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
