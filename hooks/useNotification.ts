@@ -47,7 +47,20 @@ const useNotifications = (userId?: string) => {
     });
   };
 
-  return { notifications, turnOnNotifications, turnOffNotifications };
+  const turnOffMessagesNotifications = async () => {
+    if (!userId) return;
+
+    await updateDoc(doc(db, "users", userId), {
+      hasMessage: false,
+    });
+  };
+
+  return {
+    notifications,
+    turnOnNotifications,
+    turnOffNotifications,
+    turnOffMessagesNotifications,
+  };
 };
 
 export default useNotifications;

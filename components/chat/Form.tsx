@@ -5,9 +5,10 @@ import { HiOutlineEmojiHappy } from "react-icons/hi";
 
 interface Props {
   conversationId: string;
+  otherUserId: string;
 }
 
-const Form = ({ conversationId }: Props) => {
+const Form = ({ conversationId, otherUserId }: Props) => {
   const [message, setMessage] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ const Form = ({ conversationId }: Props) => {
 
     setLoading(true);
 
-    sendMessage(message)
+    sendMessage(message, otherUserId)
       .then(() => {
         toast.success("Message sent");
 

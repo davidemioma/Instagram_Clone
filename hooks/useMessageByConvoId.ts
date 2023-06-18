@@ -36,12 +36,18 @@ const useMessagesByConvoId = (id: string) => {
     [id]
   );
 
-  const sendMessage = async (message: string) => {
+  const sendMessage = async (message: string, userId: string) => {
+    if (!userId) return;
+
     await addDoc(collection(db, "chats", id, "messages"), {
       senderId: currentUser?.id,
       message,
       hasSeen: [currentUser?.id],
       timestamp: serverTimestamp(),
+    });
+
+    await updateDoc(doc(db, "users", userId), {
+      hasMessage: true,
     });
   };
 

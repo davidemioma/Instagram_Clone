@@ -2,12 +2,27 @@ import Head from "next/head";
 import { Figtree } from "next/font/google";
 import ChatLayout from "@/components/chat/ChatLayout";
 import { IoPaperPlaneOutline } from "react-icons/io5";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useNotifications from "@/hooks/useNotification";
 import useConversationModal from "@/hooks/useConversationModal";
+import { useEffect } from "react";
 
 const font = Figtree({ subsets: ["latin"] });
 
 export default function Chats() {
+  const currentUser = useCurrentUser();
+
   const conversationModal = useConversationModal();
+
+  const { turnOffMessagesNotifications } = useNotifications(
+    `${currentUser?.id}`
+  );
+
+  useEffect(() => {
+    if (!currentUser?.id) return;
+
+    turnOffMessagesNotifications();
+  }, [turnOffMessagesNotifications]);
 
   return (
     <div className={`${font.className}`}>

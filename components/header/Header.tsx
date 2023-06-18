@@ -57,7 +57,17 @@ const Header = () => {
             )}
           </div>
 
-          <HeaderItem Icon={IoPaperPlaneOutline} href="/chats" active={true} />
+          <div className="relative">
+            <HeaderItem
+              Icon={IoPaperPlaneOutline}
+              href="/chats"
+              active={true}
+            />
+
+            {currentUser?.hasMessage && (
+              <span className="absolute top-0 right-0 bg-red-500 w-2 h-2 rounded-full" />
+            )}
+          </div>
 
           <HeaderItem
             imgSrc={

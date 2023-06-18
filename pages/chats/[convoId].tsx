@@ -2,13 +2,13 @@ import Head from "next/head";
 import { Figtree } from "next/font/google";
 import { useRouter } from "next/router";
 import Avatar from "@/components/Avatar";
+import Body from "@/components/chat/Body";
+import Form from "@/components/chat/Form";
 import useOtherUser from "@/hooks/useOtherUser";
 import useAccountById from "@/hooks/useAccountById";
 import ChatLayout from "@/components/chat/ChatLayout";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
 import useConversationById from "@/hooks/useConversationById";
-import Body from "@/components/chat/Body";
-import Form from "@/components/chat/Form";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -45,7 +45,10 @@ export default function Chat() {
 
           <Body conversationId={convoId as string} />
 
-          <Form conversationId={convoId as string} />
+          <Form
+            conversationId={convoId as string}
+            otherUserId={otherUserId as string}
+          />
         </main>
       </ChatLayout>
     </div>

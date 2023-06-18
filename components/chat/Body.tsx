@@ -17,7 +17,7 @@ const Body = ({ conversationId }: Props) => {
   const lastMessage = messages[messages.length - 1];
 
   useEffect(() => {
-    if (currentUser?.id && lastMessage.senderId !== currentUser?.id) {
+    if (currentUser?.id && lastMessage?.senderId !== currentUser?.id) {
       updateMessage(lastMessage, `${currentUser?.id}`);
     }
   }, [updateMessage, lastMessage, currentUser?.id]);

@@ -6,6 +6,7 @@ export interface AccountProps {
   profileUrl: string;
   displayName: string;
   hasNotification: boolean;
+  hasMessage: boolean;
   timestamp: {
     seconds: number;
     nanoseconds: number;
