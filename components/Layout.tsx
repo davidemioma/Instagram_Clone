@@ -20,23 +20,28 @@ const Layout = ({ children }: Props) => {
   };
 
   return (
-    <div className="bg-gray-50 w-screen h-screen overflow-y-auto">
-      <Header />
+    <div className="h-screen w-screen overflow-hidden">
+      <div className="bg-gray-50 w-full h-full overflow-y-auto">
+        <Header />
 
-      <AddPostModal />
+        <AddPostModal />
 
-      <ProfileModal />
+        <ProfileModal />
 
-      <Followers />
+        <Followers />
 
-      <Followings />
+        <Followings />
 
-      <PostModal />
+        <PostModal />
 
-      <ConversationModal />
+        <ConversationModal />
 
-      <div className="mt-16 w-full h-full" onClick={closeAllModals}>
-        {children}
+        <div
+          className="mt-16 w-full h-[calc(100vh-64px)]"
+          onClick={closeAllModals}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import MessageBox from "./MessageBox";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useMessagesByConvoId from "@/hooks/useMessageByConvoId";
@@ -16,10 +16,16 @@ const Body = ({ conversationId }: Props) => {
 
   const lastMessage = messages[messages.length - 1];
 
+  const bottomRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (currentUser?.id && lastMessage?.senderId !== currentUser?.id) {
       updateMessage(lastMessage, `${currentUser?.id}`);
     }
+
+    bottomRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
   }, [updateMessage, lastMessage, currentUser?.id]);
 
   return (
@@ -31,6 +37,8 @@ const Body = ({ conversationId }: Props) => {
           isLast={messages.length - 1 === i}
         />
       ))}
+
+      <div ref={bottomRef} />
     </div>
   );
 };
