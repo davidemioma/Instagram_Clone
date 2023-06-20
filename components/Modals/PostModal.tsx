@@ -38,9 +38,11 @@ const PostModal = () => {
     >
       <div className="w-full h-full">
         <div className="hidden lg:inline-flex w-full h-full">
-          <div className="w-1/2 h-full overflow-hidden">
-            <Carousel files={files} />
-          </div>
+          {files.length > 0 && (
+            <div className="w-1/2 h-full overflow-hidden">
+              <Carousel files={files} />
+            </div>
+          )}
 
           <div className="relative w-1/2 h-full overflow-hidden">
             <div className="h-16 flex items-center gap-3 px-4 border-b">
@@ -116,9 +118,11 @@ const PostModal = () => {
             <p className="text-sm font-bold">{account?.displayName}</p>
           </div>
 
-          <div className="w-full h-[calc(100%-64px)] overflow-hidden">
-            <Carousel files={files} />
-          </div>
+          {files.length > 0 && (
+            <div className="w-full h-[calc(100%-64px)] overflow-hidden">
+              <Carousel files={files} />
+            </div>
+          )}
 
           <div className="absolute bottom-0 w-full bg-white border-t">
             <div className="p-3">

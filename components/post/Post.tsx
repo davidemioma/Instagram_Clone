@@ -42,9 +42,11 @@ const Post = ({ post }: Props) => {
         <p className="text-sm font-semibold">{account?.displayName}</p>
       </div>
 
-      <div className="h-72 md:h-96 w-full overflow-hidden">
-        <Carousel files={files} onClick={onClickHandler} />
-      </div>
+      {files.length > 0 && (
+        <div className="h-72 md:h-96 w-full overflow-hidden">
+          <Carousel files={files} onClick={onClickHandler} />
+        </div>
+      )}
 
       <div className="flex flex-col gap-3 py-3 px-4">
         <Actions postId={post.id} />
