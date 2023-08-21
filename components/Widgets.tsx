@@ -34,7 +34,7 @@ const Widgets = () => {
 
       <p className="text-gray-500 font-semibold">Suggestions for you</p>
 
-      <div className="py-4 px-2 w-full max-w-xs">
+      <div className="py-4 px-2 w-full max-w-xs spacy-y-3">
         {accounts.map((account) => (
           <Account key={account.id} account={account} />
         ))}
